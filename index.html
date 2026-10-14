@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>건축가 포트폴리오 | Architecture & Design</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Noto Sans KR (Korean) & Playfair Display (English Accents) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Noto Sans KR"', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'],
+                    },
+                    colors: {
+                        'arch-black': '#111111',
+                        'arch-gray': '#F5F5F5',
+                        'arch-darkgray': '#777777',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Styles & Animations */
+        body {
+            background-color: #ffffff;
+            color: #111111;
+            overflow-x: hidden;
+        }
+
+        /* Hide scrollbar for clean look but keep functionality */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #888;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Scroll Reveal Animation Classes */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image Hover Zoom Effect */
+        .project-card {
+            overflow: hidden;
+        }
+        .project-img {
+            transition: transform 0.7s ease;
+        }
+        .project-card:hover .project-img {
+            transform: scale(1.05);
+        }
+        .project-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-arch-black selection:text-white">
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed w-full z-50 top-0 transition-all duration-300 py-6 px-8 md:px-16 flex justify-between items-center bg-white/90 backdrop-blur-sm border-b border-transparent">
+        <a href="#" class="text-2xl font-serif font-bold tracking-tighter z-50 relative">
+            S.KIM <span class="text-sm font-sans font-light tracking-widest uppercase ml-2 text-arch-darkgray">Architecture</span>
+        </a>
+        
+        <!-- Desktop Menu -->
+        <ul class="hidden md:flex space-x-10 font-sans text-sm tracking-wide font-medium uppercase">
+            <li><a href="#home" class="hover:text-arch-darkgray transition-colors">Home</a></li>
+            <li><a href="#about" class="hover:text-arch-darkgray transition-colors">About</a></li>
+            <li><a href="#projects" class="hover:text-arch-darkgray transition-colors">Projects</a></li>
+            <li><a href="#contact" class="hover:text-arch-darkgray transition-colors">Contact</a></li>
+        </ul>
+
+        <!-- Mobile Menu Button -->
+        <button id="mobile-menu-btn" class="md:hidden z-50 text-2xl focus:outline-none">
+            <i class="fa-solid fa-bars"></i>
+        </button>
+
+        <!-- Mobile Menu Overlay -->
+        <div id="mobile-menu" class="fixed inset-0 bg-white z-40 flex flex-col justify-center items-center opacity-0 pointer-events-none transition-opacity duration-300">
+            <ul class="flex flex-col space-y-8 text-2xl font-serif text-center">
+                <li><a href="#home" class="mobile-link hover:text-arch-darkgray">Home</a></li>
+                <li><a href="#about" class="mobile-link hover:text-arch-darkgray">About</a></li>
+                <li><a href="#projects" class="mobile-link hover:text-arch-darkgray">Projects</a></li>
+                <li><a href="#contact" class="mobile-link hover:text-arch-darkgray">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header id="home" class="relative w-full h-screen flex flex-col justify-center px-8 md:px-16 pt-20">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center h-full">
+            <div class="reveal z-10">
+                <h2 class="text-sm md:text-base font-light tracking-[0.2em] uppercase text-arch-darkgray mb-4">Architectural Design Studio</h2>
+                <h1 class="text-5xl md:text-7xl lg:text-8xl font-serif font-bold leading-[1.1] mb-8">
+                    공간을 짓다,<br>
+                    <span class="italic font-light text-arch-darkgray">삶을 담다.</span>
+                </h1>
+                <p class="text-base md:text-lg text-gray-600 max-w-md font-light leading-relaxed mb-10">
+                    우리는 단순한 건축물을 넘어, 사람과 자연 그리고 시간이 머무는 의미 있는 공간을 설계합니다. 미니멀리즘과 지속가능성을 추구합니다.
+                </p>
+                <a href="#projects" class="inline-flex items-center group">
+                    <span class="text-sm uppercase tracking-widest font-medium border-b border-arch-black pb-1 group-hover:pr-4 transition-all duration-300">포트폴리오 보기</span>
+                    <i class="fa-solid fa-arrow-right ml-4 transform group-hover:translate-x-2 transition-transform duration-300"></i>
+                </a>
+            </div>
+            
+            <div class="hidden lg:block relative h-[80%] w-full reveal delay-200">
+                <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Modern Architecture Hero" class="object-cover w-full h-full shadow-2xl">
+                <!-- Decorative element -->
+                <div class="absolute -bottom-8 -left-8 w-48 h-48 border border-arch-black/10 z-[-1]"></div>
+            </div>
+        </div>
+        
+        <!-- Scroll Indicator -->
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 flex flex-col items-center animate-bounce">
+            <span class="text-xs uppercase tracking-widest text-arch-darkgray mb-2">Scroll</span>
+            <div class="w-[1px] h-12 bg-arch-darkgray"></div>
+        </div>
+    </header>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 md:py-40 bg-arch-gray px-8 md:px-16">
+        <div class="max-w-7xl mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
+                <div class="md:col-span-4 reveal">
+                    <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4">Philosophy</h2>
+                    <div class="w-12 h-1 bg-arch-black mb-8"></div>
+                </div>
+                <div class="md:col-span-8 reveal delay-100">
+                    <h3 class="text-2xl md:text-3xl font-medium leading-snug mb-8">
+                        "건축은 빛 아래에서 형태들이 빚어내는 훌륭하고 일관된 연극이다." <br>
+                        <span class="text-lg text-arch-darkgray font-serif italic">- Le Corbusier</span>
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-gray-600 font-light leading-relaxed">
+                        <p>
+                            S.KIM 건축 사무소는 본질에 집중합니다. 장식을 배제하고 재료가 가진 고유의 질감과 빛의 흐름을 조율하여, 시간이 지나도 변치 않는 가치를 지닌 공간을 제안합니다. 사용자의 삶의 방식을 깊이 이해하는 것에서 모든 프로젝트는 시작됩니다.
+                        </p>
+                        <p>
+                            주거 공간부터 상업 시설, 문화 공공 기관에 이르기까지 다양한 규모의 프로젝트를 수행하며, 도시와 환경에 긍정적인 영향을 미치는 지속 가능한 건축을 지향합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mt-24 border-t border-gray-300 pt-16 reveal delay-200">
+                <div>
+                    <h4 class="text-4xl md:text-5xl font-serif mb-2">12+</h4>
+                    <p class="text-xs uppercase tracking-widest text-arch-darkgray">Years of Experience</p>
+                </div>
+                <div>
+                    <h4 class="text-4xl md:text-5xl font-serif mb-2">84</h4>
+                    <p class="text-xs uppercase tracking-widest text-arch-darkgray">Completed Projects</p>
+                </div>
+                <div>
+                    <h4 class="text-4xl md:text-5xl font-serif mb-2">15</h4>
+                    <p class="text-xs uppercase tracking-widest text-arch-darkgray">Design Awards</p>
+                </div>
+                <div>
+                    <h4 class="text-4xl md:text-5xl font-serif mb-2">100%</h4>
+                    <p class="text-xs uppercase tracking-widest text-arch-darkgray">Client Satisfaction</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24 md:py-40 px-4 md:px-8 max-w-[1600px] mx-auto">
+        <div class="text-center mb-20 reveal">
+            <h2 class="text-3xl md:text-5xl font-serif font-bold mb-4">Selected Works</h2>
+            <p class="text-arch-darkgray uppercase tracking-widest text-sm">2018 - 2026</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
+            <!-- Project 1 -->
+            <div class="project-card relative cursor-pointer group reveal">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop" alt="Project 1" class="project-img w-full h-full object-cover">
+                </div>
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <p class="text-xs uppercase tracking-widest mb-2 opacity-80">Residential | Seoul</p>
+                    <h3 class="text-2xl font-serif">빛과 그림자의 집</h3>
+                    <div class="w-0 h-[1px] bg-white mt-4 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card relative cursor-pointer group reveal delay-100">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1513694203232-719a280e022f?q=80&w=2069&auto=format&fit=crop" alt="Project 2" class="project-img w-full h-full object-cover">
+                </div>
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <p class="text-xs uppercase tracking-widest mb-2 opacity-80">Commercial | Jeju</p>
+                    <h3 class="text-2xl font-serif">제주 해안 카페 브리프</h3>
+                    <div class="w-0 h-[1px] bg-white mt-4 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+
+            <!-- Project 3 -->
+            <div class="project-card relative cursor-pointer group reveal delay-200">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1510798831971-661eb04b3739?q=80&w=2134&auto=format&fit=crop" alt="Project 3" class="project-img w-full h-full object-cover">
+                </div>
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <p class="text-xs uppercase tracking-widest mb-2 opacity-80">Public | Busan</p>
+                    <h3 class="text-2xl font-serif">자연 안의 도서관</h3>
+                    <div class="w-0 h-[1px] bg-white mt-4 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+
+            <!-- Project 4 -->
+            <div class="project-card relative cursor-pointer group reveal">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1507652313656-11f6dbe655e0?q=80&w=2000&auto=format&fit=crop" alt="Project 4" class="project-img w-full h-full object-cover">
+                </div>
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <p class="text-xs uppercase tracking-widest mb-2 opacity-80">Culture | Incheon</p>
+                    <h3 class="text-2xl font-serif">인천 시립 미술관 별관</h3>
+                    <div class="w-0 h-[1px] bg-white mt-4 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+
+            <!-- Project 5 -->
+            <div class="project-card relative cursor-pointer group reveal delay-100">
+                <div class="aspect-[4/5] overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1600607688969-a5bfcd646154?q=80&w=2070&auto=format&fit=crop" alt="Project 5" class="project-img w-full h-full object-cover">
+                </div>
+                <div class="project-overlay absolute inset-0 flex flex-col justify-end p-8 text-white">
+                    <p class="text-xs uppercase tracking-widest mb-2 opacity-80">Residential | Pangyo</p>
+                    <h3 class="text-2xl font-serif">판교 중정주택</h3>
+                    <div class="w-0 h-[1px] bg-white mt-4 group-hover:w-full transition-all duration-500 ease-in-out"></div>
+                </div>
+            </div>
+
+            <!-- Project 6 -->
+            <div class="project-card relative cursor-pointer group reveal delay-200">
+                <div class="aspect-[4/5] overflow-hidden flex items-center justify-center bg-arch-gray">
+                    <div class="text-center">
+                        <i class="fa-solid fa-plus text-3xl mb-4 text-arch-darkgray group-hover:text-arch-black transition-colors"></i>
+                        <h3 class="text-xl font-serif">View All Projects</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 md:py-32 bg-arch-black text-white px-8 md:px-16">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16">
+            <div class="reveal">
+                <h2 class="text-4xl md:text-6xl font-serif font-bold mb-8">Let's build<br>something<br>together.</h2>
+                <p class="text-gray-400 font-light mb-12 max-w-sm">
+                    새로운 프로젝트에 대한 문의나 협업 제안을 환영합니다. 아래 이메일로 연락 주시면 빠르게 회신해 드리겠습니다.
+                </p>
+                <div class="space-y-4 font-light text-sm tracking-wide">
+                    <p class="flex items-center gap-4 hover:text-gray-300 transition-colors">
+                        <i class="fa-regular fa-envelope"></i> contact@skim-architecture.com
+                    </p>
+                    <p class="flex items-center gap-4 hover:text-gray-300 transition-colors">
+                        <i class="fa-solid fa-phone"></i> +82 (0)2-1234-5678
+                    </p>
+                    <p class="flex items-center gap-4 hover:text-gray-300 transition-colors">
+                        <i class="fa-solid fa-location-dot"></i> 서울특별시 강남구 테헤란로 123, 4층
+                    </p>
+                </div>
+            </div>
+            
+            <div class="reveal delay-100 flex flex-col justify-center">
+                <form class="space-y-8" onsubmit="event.preventDefault(); showMessage();">
+                    <div class="border-b border-gray-700 pb-2">
+                        <input type="text" placeholder="이름 (Name)" class="w-full bg-transparent outline-none focus:border-white transition-colors text-white placeholder-gray-500 font-light" required>
+                    </div>
+                    <div class="border-b border-gray-700 pb-2">
+                        <input type="email" placeholder="이메일 (Email)" class="w-full bg-transparent outline-none focus:border-white transition-colors text-white placeholder-gray-500 font-light" required>
+                    </div>
+                    <div class="border-b border-gray-700 pb-2">
+                        <textarea placeholder="프로젝트 내용 (Message)" rows="4" class="w-full bg-transparent outline-none focus:border-white transition-colors text-white placeholder-gray-500 font-light resize-none" required></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-white text-arch-black py-4 font-medium uppercase tracking-widest text-sm hover:bg-gray-200 transition-colors">
+                        메시지 보내기
+                    </button>
+                    <p id="form-message" class="text-sm text-green-400 hidden mt-4 text-center">성공적으로 전송되었습니다!</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-arch-black text-gray-500 py-8 px-8 md:px-16 border-t border-gray-800 text-xs md:text-sm font-light">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center">
+            <p>&copy; 2026 S.KIM Architecture. All rights reserved.</p>
+            <div class="flex space-x-6 mt-4 md:mt-0 text-lg">
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-instagram"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-behance"></i></a>
+                <a href="#" class="hover:text-white transition-colors"><i class="fa-brands fa-linkedin-in"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script>
+        // Form Message Simulation
+        function showMessage() {
+            const msg = document.getElementById('form-message');
+            msg.classList.remove('hidden');
+            setTimeout(() => {
+                msg.classList.add('hidden');
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            // Navbar Scroll Effect
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('border-gray-200', 'shadow-sm');
+                } else {
+                    navbar.classList.remove('border-gray-200', 'shadow-sm');
+                }
+            });
+
+            // Mobile Menu Toggle
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileIcon = mobileBtn.querySelector('i');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+            let isMenuOpen = false;
+
+            function toggleMenu() {
+                isMenuOpen = !isMenuOpen;
+                if (isMenuOpen) {
+                    mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
+                    mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
+                    mobileIcon.classList.remove('fa-bars');
+                    mobileIcon.classList.add('fa-xmark');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling
+                } else {
+                    mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
+                    mobileMenu.classList.add('opacity-0', 'pointer-events-none');
+                    mobileIcon.classList.remove('fa-xmark');
+                    mobileIcon.classList.add('fa-bars');
+                    document.body.style.overflow = 'auto'; // Re-enable scrolling
+                }
+            }
+
+            mobileBtn.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (isMenuOpen) toggleMenu();
+                });
+            });
+
+            // Scroll Reveal Animation with Intersection Observer
+            const revealElements = document.querySelectorAll('.reveal');
+            
+            const revealOptions = {
+                threshold: 0.15,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const revealOnScroll = new IntersectionObserver(function(entries, observer) {
+                entries.forEach(entry => {
+                    if (!entry.isIntersecting) {
+                        return;
+                    } else {
+                        entry.target.classList.add('active');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, revealOptions);
+
+            revealElements.forEach(el => {
+                revealOnScroll.observe(el);
+            });
+        });
+    </script>
+</body>
+</html>
